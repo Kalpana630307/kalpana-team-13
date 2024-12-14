@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Registration Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .form-container {
+            max-width: 400px;
+            margin: auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+        }
+        .form-container h2 {
+            text-align: center;
+        }
+        .form-container label {
+            display: block;
+            margin-top: 10px;
+        }
+        .form-container input, .form-container button {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+        }
+        .form-container button {
+            background-color: #4CAF50;
+            color: white;
+            cursor: pointer;
+        }
+        .form-container button:hover {
+            background-color: #45a049;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+        th, td {
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        .actions button {
+            margin-right: 5px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="form-container">
+    <h2>Student Registration Form</h2>
+    <form id="studentForm">
+        <label for="name">Name:</label>
+        <input type="text" id="name" placeholder="Enter student name" required>
+
+        <label for="age">Age:</label>
+        <input type="number" id="age" placeholder="Enter student age" required>
+
+        <label for="class">Class:</label>
+        <input type="text" id="class" placeholder="Enter student class" required>
+
+        <label for="branch">Branch:</label>
+        <input type="text" id="branch" placeholder="Enter student branch" required>
+
+        <button type="submit">Add Student</button>
+    </form>
+</div>
+
+<table id="studentTable">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Age</th>
+            <th>Class</th>   
+            <th>Branch</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        <!-- Dynamic Rows -->
+    </tbody>
+</table>
+
+<script>
+    const studentForm = document.getElementById('studentForm');
+    const studentTable = document.getElementById('studentTable').querySelector('tbody');
+
+    // Handle form submission
+    studentForm.addEventListener('submit', (event) => {
+        event.preventDefault();
+
+        const name = document.getElementById('name').value;
+        const age = document.getElementById('age').value;
+        const className = document.getElementById('class').value;
+        const branch = document.getElementById('branch').value;
+
+        addStudent(name, age, className, branch);
+        studentForm.reset();
+    });
+
+    // Add student
+    function addStudent(name, age, className, branch) {
+        const row = document.createElement('tr');
+
+        row.innerHTML = `
+            <td>${name}</td>
+            <td>${age}</td>
+            <td>${className}</td>
+            <td>${branch}</td>
+            <td class="actions">
+                <button onclick="editStudent(this)">Edit</button>
+                <button onclick="deleteStudent(this)">Delete</button>
+            </td>
+        `;
+
+        studentTable.appendChild(row);
+    }
+
+    // Edit student
+    function editStudent(button) {
+        const row = button.parentElement.parentElement;
+        const name = row.children[0].innerText;
+        const age = row.children[1].innerText;
+        const className = row.children[2].innerText;
+        const branch = row.children[0].innerText;
+
+        document.getElementById('name').value = name
+        document.getElementBygetElementById('age').value = age;
+        document.getElementById('class').value = className;
+        document.getElementById('branch').value = branch;
+        
+
+
+        deleteStudent(button);
+    }
+
+    // Delete student
+    function deleteStudent(button) {
+        const row = button.parentElement.parentElement;
+        row.remove();
+    }
+</script>
+
+</body>
+</html>
